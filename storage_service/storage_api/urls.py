@@ -15,11 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from storage_api.views import get_all_files, upload_file, handle_file, FileUploadAPIView
+from storage_api.views import FileList, FileCreate, File
+# from storage_api.views import get_all_files, handle_file, FileUploadAPIView
+
+# urlpatterns = [
+#     path('', get_all_files),
+#     path('<int:file_id>', handle_file),
+#     path('file', FileUploadAPIView.as_view(), name='file-upload'),
+# ]
 
 urlpatterns = [
-    path('', get_all_files),
-    path('<int:file_id>', handle_file),
-    path('upload', upload_file),
-    path('file', FileUploadAPIView.as_view(), name='file-upload'),
+    path('', FileList.as_view()),
+    path('upload', FileCreate.as_view()),
+    path('<int:file_id>', File.as_view()),
 ]
